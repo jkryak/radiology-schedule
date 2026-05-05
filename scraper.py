@@ -7,9 +7,8 @@ url = "https://lblite.lightning-bolt.com/public/659663dc-845e-49b3-b9fd-a11872df
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# Map today's weekday to column (Mon=1, Tue=2, Wed=3, Thu=4, Fri=5, Sat=6, Sun=7)
-# Using % 7 + 1 handles edge cases for weekend transitions
-weekday_col = datetime.now().weekday() + 1 
+# Get today's date in MM/DD format (e.g., "05/05")
+today_str = datetime.now().strftime("%m/%d")
 
 targets = {
     "IR 4553151": "IR Primary",
@@ -23,28 +22,40 @@ targets = {
 }
 
 results = {"PAs": []}
+target_column = None
 
+# Find all table rows
 rows = soup.find_all('tr')
+
+# 1. FIND THE CORRECT COLUMN FOR TODAY
+for row in rows:
+    header_cols = row.find_all(['th', 'td'])
+    for idx, col in enumerate(header_cols):
+        if today_str in col.get_text():
+            target_column = idx
+            break
+    if target_column:
+        break
+
+# Default to current weekday index if date search fails
+if not target_column:
+    target_column = datetime.now().weekday() + 1
+
+# 2. EXTRACT DATA FROM THAT COLUMN
 for row in rows:
     cols = row.find_all('td')
-    if len(cols) < 2: continue # Skip empty rows
+    if len(cols) <= target_column: continue
     
-    # Get the text from the first column (the role/assignment name)
-    # Using 'contains' logic to be safer
-    assignment_name = cols[0].get_text(strip=True)
+    assignment_text = cols[0].get_text(strip=True)
     
     for key, label in targets.items():
-        if key in assignment_name:
-            # Grab the name from the correct day column
-            try:
-                name = cols[weekday_col].get_text(strip=True)
-                if "PA" in key:
-                    results["PAs"].append({"role": label, "name": name})
-                else:
-                    results[label] = name
-            except IndexError:
-                continue
+        if key in assignment_text:
+            name = cols[target_column].get_text(strip=True)
+            if "PA" in key:
+                results["PAs"].append({"role": label, "name": name})
+            else:
+                results[label] = name
 
-# Save the data
+# Save to data.json
 with open('data.json', 'w') as f:
     json.dump(results, f)
