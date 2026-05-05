@@ -2,18 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from datetime import datetime
-import pytz
-
-# Set the timezone to Eastern Time (Greenville, SC)
-eastern = pytz.timezone('US/Eastern')
-now_eastern = datetime.now(eastern)
-
-# Map today's weekday to column (Mo=1, Tu=2, We=3, Th=4, Fr=5, Sa=6, Su=7)
-weekday_col = now_eastern.isoweekday()
 
 url = "https://lblite.lightning-bolt.com/public/659663dc-845e-49b3-b9fd-a11872df3ca1"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
+
+# Map today's weekday to column (Mon=1, Tue=2, Wed=3, Thu=4, Fri=5, Sat=6, Sun=7)
+# Using % 7 + 1 handles edge cases for weekend transitions
+weekday_col = datetime.now().weekday() + 1 
 
 targets = {
     "IR 4553151": "IR Primary",
@@ -31,25 +27,24 @@ results = {"PAs": []}
 rows = soup.find_all('tr')
 for row in rows:
     cols = row.find_all('td')
-    if not cols: continue
+    if len(cols) < 2: continue # Skip empty rows
     
-    # Get the text from the first column (the assignment name)
+    # Get the text from the first column (the role/assignment name)
+    # Using 'contains' logic to be safer
     assignment_name = cols[0].get_text(strip=True)
     
-    if assignment_name in targets:
-        # Get the name from the column corresponding to today
-        try:
-            name = cols[weekday_col].get_text(strip=True)
-        except IndexError:
-            name = "TBD"
-            
-        mapped_role = targets[assignment_name]
-        
-        if "PA" in assignment_name:
-            results["PAs"].append({"role": mapped_role, "name": name if name else "Not Assigned"})
-        else:
-            results[mapped_role] = name if name else "Not Assigned"
+    for key, label in targets.items():
+        if key in assignment_name:
+            # Grab the name from the correct day column
+            try:
+                name = cols[weekday_col].get_text(strip=True)
+                if "PA" in key:
+                    results["PAs"].append({"role": label, "name": name})
+                else:
+                    results[label] = name
+            except IndexError:
+                continue
 
-# Save the real data
+# Save the data
 with open('data.json', 'w') as f:
     json.dump(results, f)
