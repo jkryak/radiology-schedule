@@ -51,39 +51,29 @@
     </div>
 
     <script>
-        // Mock Data based on your source URL structure
-        // In a live version, your Python scraper would populate this JSON
-        const scheduleData = {
-            "IR Primary": "Hinshelwood, Jonathan",
-            "IR Assist": "Jaynes, Jared",
-            "IR/CT": "Handran, Chauncy",
-            "PAs": [
-                { role: "IR Outpatient", name: "Urban, Julia" },
-                { role: "CT", name: "Tarasevich, Natalya" },
-                { role: "Inpatient 1", name: "Urban, Julia" },
-                { role: "GOR", name: "Looper, Amanda" },
-                { role: "GMH FL 1", name: "Kryak, Justin" }
-            ]
-        };
+    // Set the Date
+    document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', month: 'long', day: 'numeric' 
+    });
 
-        // Initialize Dashboard
-        document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', month: 'long', day: 'numeric' 
-        });
-        
-        document.getElementById('ir-primary').innerText = scheduleData["IR Primary"];
-        document.getElementById('ir-assist').innerText = scheduleData["IR Assist"];
-        document.getElementById('ir-ct').innerText = scheduleData["IR/CT"];
+    // Fetch the real data from the file created by the scraper
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ir-primary').innerText = data["IR Primary"] || "Not Assigned";
+            document.getElementById('ir-assist').innerText = data["IR Assist"] || "Not Assigned";
+            document.getElementById('ir-ct').innerText = data["IR/CT"] || "Not Assigned";
 
-        const paContainer = document.getElementById('pa-list');
-        scheduleData.PAs.forEach(pa => {
-            const card = `
-                <div class="glass-card p-3 rounded-xl flex justify-between items-center">
-                    <span class="text-sm font-medium text-slate-500">${pa.role}</span>
-                    <span class="font-semibold text-slate-800">${pa.name}</span>
-                </div>`;
-            paContainer.innerHTML += card;
-        });
-    </script>
-</body>
-</html>
+            const paContainer = document.getElementById('pa-list');
+            paContainer.innerHTML = ''; // Clear loading state
+            data.PAs.forEach(pa => {
+                const card = `
+                    <div class="glass-card p-3 rounded-xl flex justify-between items-center">
+                        <span class="text-sm font-medium text-slate-500">${pa.role}</span>
+                        <span class="font-semibold text-slate-800">${pa.name}</span>
+                    </div>`;
+                paContainer.innerHTML += card;
+            });
+        })
+        .catch(err => console.error("Error loading schedule:", err));
+</script>
