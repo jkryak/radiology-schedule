@@ -1,15 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
+
+# 1. ADJUST FOR GREENVILLE TIME (UTC-4)
+# GitHub servers run on London time. This ensures 'today' means 'Greenville today'.
+now = datetime.utcnow() - timedelta(hours=4)
+today_str = now.strftime("%m/%d")
+weekday_idx = now.weekday() + 1 # Mon=1, Tue=2...
 
 url = "https://lblite.lightning-bolt.com/public/659663dc-845e-49b3-b9fd-a11872df3ca1"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# Get today's date in MM/DD format (e.g., "05/05")
-today_str = datetime.now().strftime("%m/%d")
-
+# These are the exact terms the script looks for in the first column
 targets = {
     "IR 4553151": "IR Primary",
     "IR Assist": "IR Assist",
@@ -22,40 +26,35 @@ targets = {
 }
 
 results = {"PAs": []}
-target_column = None
-
-# Find all table rows
 rows = soup.find_all('tr')
 
-# 1. FIND THE CORRECT COLUMN FOR TODAY
+# 2. FIND THE COLUMN FOR TODAY'S DATE
+target_col = weekday_idx # Default fallback
 for row in rows:
-    header_cols = row.find_all(['th', 'td'])
-    for idx, col in enumerate(header_cols):
-        if today_str in col.get_text():
-            target_column = idx
+    cells = row.find_all(['th', 'td'])
+    for i, cell in enumerate(cells):
+        if today_str in cell.get_text():
+            target_col = i
             break
-    if target_column:
-        break
 
-# Default to current weekday index if date search fails
-if not target_column:
-    target_column = datetime.now().weekday() + 1
-
-# 2. EXTRACT DATA FROM THAT COLUMN
+# 3. EXTRACT THE NAMES
 for row in rows:
     cols = row.find_all('td')
-    if len(cols) <= target_column: continue
+    if len(cols) <= target_col: continue
     
-    assignment_text = cols[0].get_text(strip=True)
+    row_label = cols[0].get_text(strip=True)
     
-    for key, label in targets.items():
-        if key in assignment_text:
-            name = cols[target_column].get_text(strip=True)
+    for key, mapped_label in targets.items():
+        if key in row_label:
+            name = cols[target_col].get_text(strip=True)
+            # If the cell is empty or has a dash, label as "None"
+            if not name or name == "-": name = "Not Assigned"
+            
             if "PA" in key:
-                results["PAs"].append({"role": label, "name": name})
+                results["PAs"].append({"role": mapped_label, "name": name})
             else:
-                results[label] = name
+                results[mapped_label] = name
 
 # Save to data.json
 with open('data.json', 'w') as f:
-    json.dump(results, f)
+    json.dump(results, f, indent=2)
