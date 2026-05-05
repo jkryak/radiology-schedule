@@ -1,23 +1,38 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from datetime import datetime, timedelta
-
-# 1. ADJUST FOR GREENVILLE TIME (UTC-4)
-# GitHub servers run on London time. This ensures 'today' means 'Greenville today'.
-now = datetime.utcnow() - timedelta(hours=4)
-today_str = now.strftime("%m/%d")
-weekday_idx = now.weekday() + 1 # Mon=1, Tue=2...
+from datetime import datetime
 
 url = "https://lblite.lightning-bolt.com/public/659663dc-845e-49b3-b9fd-a11872df3ca1"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# These are the exact terms the script looks for in the first column
-targets = {
+# 1. FIND THE COLUMN FOR TODAY
+# We look for the current day's date (e.g., "05/05")
+today_str = datetime.now().strftime("%m/%d")
+target_column = None
+
+# Find the header row (usually the first row with 'Assignment')
+for row in soup.find_all('tr'):
+    cells = row.find_all(['td', 'th'])
+    for idx, cell in enumerate(cells):
+        if today_str in cell.get_text():
+            target_column = idx
+            break
+    if target_column: break
+
+# Fallback to weekday if date search fails (Mon=1, Tue=2...)
+if target_column is None:
+    target_column = datetime.now().weekday() + 1
+
+# 2. DEFINE SEARCH TERMS
+# We use shorter terms to ensure a match even if there are weird symbols
+doctor_targets = {
     "IR 4553151": "IR Primary",
     "IR Assist": "IR Assist",
-    "IR/CT 4554653": "IR/CT",
+    "IR/CT": "IR/CT"
+}
+pa_targets = {
     "PA IR Outpatient": "IR Outpatient",
     "PA CT": "CT",
     "PA IR Inpatient 1": "Inpatient 1",
@@ -26,35 +41,25 @@ targets = {
 }
 
 results = {"PAs": []}
-rows = soup.find_all('tr')
 
-# 2. FIND THE COLUMN FOR TODAY'S DATE
-target_col = weekday_idx # Default fallback
-for row in rows:
-    cells = row.find_all(['th', 'td'])
-    for i, cell in enumerate(cells):
-        if today_str in cell.get_text():
-            target_col = i
-            break
-
-# 3. EXTRACT THE NAMES
-for row in rows:
+# 3. SCRAPE THE DATA
+for row in soup.find_all('tr'):
     cols = row.find_all('td')
-    if len(cols) <= target_col: continue
+    if len(cols) <= target_column: continue
     
     row_label = cols[0].get_text(strip=True)
+    name_found = cols[target_column].get_text(strip=True)
     
-    for key, mapped_label in targets.items():
+    # Check for Doctors
+    for key, display_label in doctor_targets.items():
         if key in row_label:
-            name = cols[target_col].get_text(strip=True)
-            # If the cell is empty or has a dash, label as "None"
-            if not name or name == "-": name = "Not Assigned"
+            results[display_label] = name_found
             
-            if "PA" in key:
-                results["PAs"].append({"role": mapped_label, "name": name})
-            else:
-                results[mapped_label] = name
+    # Check for PAs
+    for key, display_label in pa_targets.items():
+        if key in row_label:
+            results["PAs"].append({"role": display_label, "name": name_found})
 
-# Save to data.json
+# 4. SAVE DATA
 with open('data.json', 'w') as f:
     json.dump(results, f, indent=2)
