@@ -7,13 +7,22 @@ url = "https://lblite.lightning-bolt.com/public/659663dc-845e-49b3-b9fd-a11872df
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# Map today's weekday to the correct column in the table (Mo=1, Tu=2, etc.)
+# Find the column for today (e.g., "Tu 05/05")
+today_str = datetime.now().strftime("%m/%d")
+headers = [th.get_text(strip=True) for th in soup.find_all('th')]
+
+# Default to today's weekday column if date match fails
 weekday_col = datetime.now().weekday() + 1 
 
+for i, h in enumerate(headers):
+    if today_str in h:
+        weekday_col = i
+        break
+
 targets = {
-    "IR 4553151": "IR Primary",
+    "¶IR 4553151": "IR Primary",
     "IR Assist": "IR Assist",
-    "IR/CT 4554653": "IR/CT",
+    "¶IR/CT 4554653": "IR/CT",
     "PA IR Outpatient": "IR Outpatient",
     "PA CT": "CT",
     "PA IR Inpatient 1": "Inpatient 1",
@@ -31,14 +40,15 @@ for row in rows:
     assignment_name = cols[0].get_text(strip=True)
     
     if assignment_name in targets:
-        name = cols[weekday_col].get_text(strip=True)
-        mapped_role = targets[assignment_name]
-        
-        if "PA" in assignment_name:
-            results["PAs"].append({"role": mapped_role, "name": name})
-        else:
-            results[mapped_role] = name
+        # Check if index is within range
+        if len(cols) > weekday_col:
+            name = cols[weekday_col].get_text(strip=True)
+            mapped_role = targets[assignment_name]
+            
+            if "PA" in assignment_name:
+                results["PAs"].append({"role": mapped_role, "name": name})
+            else:
+                results[mapped_role] = name
 
-# Save this to a data file
 with open('data.json', 'w') as f:
     json.dump(results, f)
