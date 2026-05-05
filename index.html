@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR/PA Daily Schedule</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-900">
+
+    <div class="max-w-md mx-auto p-6">
+        <header class="mb-8 text-center">
+            <h1 class="text-2xl font-bold text-blue-900">Radiology IR Dashboard</h1>
+            <p id="current-date" class="text-slate-500 font-medium"></p>
+        </header>
+
+        <section class="mb-8">
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 px-1">IR Physicians</h2>
+            <div class="space-y-3">
+                <div class="glass-card p-4 rounded-2xl shadow-sm">
+                    <p class="text-sm text-blue-600 font-bold uppercase">Primary IR</p>
+                    <p id="ir-primary" class="text-lg font-semibold text-slate-800">Loading...</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl shadow-sm">
+                    <p class="text-sm text-indigo-600 font-bold uppercase">IR Assist</p>
+                    <p id="ir-assist" class="text-lg font-semibold text-slate-800">Loading...</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl shadow-sm">
+                    <p class="text-sm text-purple-600 font-bold uppercase">IR/CT Doctor</p>
+                    <p id="ir-ct" class="text-lg font-semibold text-slate-800">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 px-1">Physician Assistants</h2>
+            <div id="pa-list" class="grid grid-cols-1 gap-3">
+                </div>
+        </section>
+        
+        <footer class="mt-12 text-center text-xs text-slate-400">
+            Source: Lightning Bolt Lite • Updated Daily
+        </footer>
+    </div>
+
+    <script>
+        // Mock Data based on your source URL structure
+        // In a live version, your Python scraper would populate this JSON
+        const scheduleData = {
+            "IR Primary": "Hinshelwood, Jonathan",
+            "IR Assist": "Jaynes, Jared",
+            "IR/CT": "Handran, Chauncy",
+            "PAs": [
+                { role: "IR Outpatient", name: "Urban, Julia" },
+                { role: "CT", name: "Tarasevich, Natalya" },
+                { role: "Inpatient 1", name: "Urban, Julia" },
+                { role: "GOR", name: "Looper, Amanda" },
+                { role: "GMH FL 1", name: "Kryak, Justin" }
+            ]
+        };
+
+        // Initialize Dashboard
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', month: 'long', day: 'numeric' 
+        });
+        
+        document.getElementById('ir-primary').innerText = scheduleData["IR Primary"];
+        document.getElementById('ir-assist').innerText = scheduleData["IR Assist"];
+        document.getElementById('ir-ct').innerText = scheduleData["IR/CT"];
+
+        const paContainer = document.getElementById('pa-list');
+        scheduleData.PAs.forEach(pa => {
+            const card = `
+                <div class="glass-card p-3 rounded-xl flex justify-between items-center">
+                    <span class="text-sm font-medium text-slate-500">${pa.role}</span>
+                    <span class="font-semibold text-slate-800">${pa.name}</span>
+                </div>`;
+            paContainer.innerHTML += card;
+        });
+    </script>
+</body>
+</html>
