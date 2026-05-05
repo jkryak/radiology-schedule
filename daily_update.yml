@@ -1,0 +1,31 @@
+name: Daily Schedule Update
+on:
+  schedule:
+    - cron: '0 9 * * *' # Runs every day at 4:00 AM EST (9:00 UTC)
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run Scraper
+        run: python scraper.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "ScheduleBot"
+          git config --global user.email "bot@github.com"
+          git add .
+          git commit -m "Update daily schedule" || exit 0
+          git push
