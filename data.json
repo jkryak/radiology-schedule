@@ -1,51 +1,51 @@
 {
   "schedule": {
     "05/19": {
-      "IR Primary": "Handran, Chauncy",
-      "IR Assist": "Bittle, Scott",
-      "IR/CT": "Hinshelwood, Jonathan",
+      "IR Primary": "CBH",
+      "IR Assist": "JSB",
+      "IR/CT": "JRH",
       "PAs": [
-        {"role": "IR Outpatient", "name": "Urban, Julia"},
-        {"role": "CT", "name": "Kryak, Justin"},
-        {"role": "IR Inpatient 1", "name": "Tarasevich, Natalya"},
-        {"role": "GOR", "name": "Abdullah, Caitlin"},
-        {"role": "GMH FL 1", "name": "Eidson, Len"}
+        {"role": "IR Outpatient", "name": "JU"},
+        {"role": "CT", "name": "JK"},
+        {"role": "IR Inpatient 1", "name": "NT"},
+        {"role": "GOR", "name": "CA"},
+        {"role": "GMH FL 1", "name": "LE"}
       ]
     },
     "05/20": {
-      "IR Primary": "Handran, Chauncy",
-      "IR Assist": "Bittle, Scott",
-      "IR/CT": "Hinshelwood, Jonathan",
+      "IR Primary": "CBH",
+      "IR Assist": "JSB,
+      "IR/CT": "JRH",
       "PAs": [
-        {"role": "IR Outpatient", "name": "Tarasevich, Natalya"},
-        {"role": "CT", "name": "Eidson, Len"},
-        {"role": "IR Inpatient 1", "name": "Kryak, Justin"},
-        {"role": "GOR", "name": "Spagnolo, Rio"},
-        {"role": "GMH FL 1", "name": "Abdullah, Caitlin"}
+        {"role": "IR Outpatient", "name": "NT"},
+        {"role": "CT", "name": "LE"},
+        {"role": "IR Inpatient 1", "name": "JK"},
+        {"role": "GOR", "name": "RS"},
+        {"role": "GMH FL 1", "name": "CA"}
       ]
     },
     "05/21": {
-      "IR Primary": "Bittle, Scott",
-      "IR Assist": "Hinshelwood, Jonathan",
-      "IR/CT": "Handran, Chauncy",
+      "IR Primary": "JSB",
+      "IR Assist": "JRH",
+      "IR/CT": "CBH",
       "PAs": [
-        {"role": "IR Outpatient", "name": "Kryak, Justin"},
-        {"role": "CT", "name": "Kryak, Justin"},
-        {"role": "IR Inpatient 1", "name": "Urban, Julia"},
-        {"role": "GOR", "name": "Abdullah, Caitlin"},
-        {"role": "GMH FL 1", "name": "Spagnolo, Rio"}
+        {"role": "IR Outpatient", "name": "JK"},
+        {"role": "CT", "name": "JK"},
+        {"role": "IR Inpatient 1", "name": "JU"},
+        {"role": "GOR", "name": "CA"},
+        {"role": "GMH FL 1", "name": "RS"}
       ]
     },
     "05/22": {
-      "IR Primary": "Hinshelwood, Jonathan",
-      "IR Assist": "Bittle, Scott",
-      "IR/CT": "Handran, Chauncy",
+      "IR Primary": "JRH",
+      "IR Assist": "JSB",
+      "IR/CT": "CBH",
       "PAs": [
-        {"role": "IR Outpatient", "name": "Abdullah, Caitlin"},
-        {"role": "CT", "name": "Abdullah, Caitlin"},
-        {"role": "IR Inpatient 1", "name": "Tarasevich, Natalya"},
-        {"role": "GOR", "name": "Eidson, Len"},
-        {"role": "GMH FL 1", "name": "Spagnolo, Rio"}
+        {"role": "IR Outpatient", "name": "CA"},
+        {"role": "CT", "name": "CA"},
+        {"role": "IR Inpatient 1", "name": "NT"},
+        {"role": "GOR", "name": "LE"},
+        {"role": "GMH FL 1", "name": "RS"}
       ]
     }
   }
