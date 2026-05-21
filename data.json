@@ -5,7 +5,7 @@
       "IR Assist": "S. Bit",
       "IR/CT": "J. Hin",
       "Upfront": "R. Hei",
-      "Peds": "P. Pat",
+      "Peds": "J. Pat",
       "Neuro Proc": "M. Kni",
       "PAs": [
         {"role": "IR Outpatient", "name": "J. Urb"},
@@ -22,8 +22,8 @@
       "IR Assist": "S. Bit",
       "IR/CT": "J. Hin",
       "Upfront": "S. Lee",
-      "Peds": "P. Pat",
-      "Neuro Proc": "P. Par",
+      "Peds": "J. Pat",
+      "Neuro Proc": "N. Par",
       "PAs": [
         {"role": "IR Outpatient", "name": "N. Tar"},
         {"role": "CT", "name": "L. Eid"},
@@ -39,7 +39,7 @@
       "IR Assist": "J. Hin",
       "IR/CT": "C. Han",
       "Upfront": "J. Han",
-      "Peds": "P. Pat",
+      "Peds": "J. Pat",
       "Neuro Proc": "M. Kni",
       "PAs": [
         {"role": "IR Outpatient", "name": "N. Tar"},
@@ -56,7 +56,7 @@
       "IR Assist": "S. Bit",
       "IR/CT": "C. Han",
       "Upfront": "D. Epl",
-      "Peds": "P. Pat",
+      "Peds": "J. Pat",
       "Neuro Proc": "R. Lea",
       "PAs": [
         {"role": "IR Outpatient", "name": "N. Tar"},
@@ -126,7 +126,7 @@
       "IR Assist": "C. Han",
       "IR/CT": "J. Hin",
       "Upfront": "M. Dev",
-      "Peds": "P. Pat",
+      "Peds": "J. Pat",
       "Neuro Proc": "J. Dav",
       "PAs": [
         {"role": "CT", "name": "R. Spa"},
