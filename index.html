@@ -15,25 +15,39 @@
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-900">
   <div class="max-w-lg mx-auto p-5">
-
+ 
     <header class="mb-6 text-center">
       <h1 class="text-2xl font-bold text-blue-900">Radiology Dashboard</h1>
-      <p id="current-date" class="text-slate-500 font-medium"></p>
+ 
+      <!-- Date nav -->
+      <div class="flex items-center justify-center gap-4 mt-2">
+        <button id="prev-day" onclick="changeDay(-1)"
+          class="w-9 h-9 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 hover:bg-slate-100 active:scale-95 transition text-lg">‹</button>
+        <div class="text-center">
+          <p id="current-date" class="text-slate-700 font-semibold"></p>
+          <p id="today-label" class="text-xs text-blue-500 font-medium h-4"></p>
+        </div>
+        <button id="next-day" onclick="changeDay(1)"
+          class="w-9 h-9 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 hover:bg-slate-100 active:scale-95 transition text-lg">›</button>
+      </div>
     </header>
-
-    <!-- Closed banner (hidden by default) -->
+ 
+    <!-- Closed banner -->
     <div id="closed-banner" class="hidden mb-6 bg-blue-100 border border-blue-300 rounded-2xl p-6 text-center">
-      <p class="text-2xl font-bold text-blue-800">🏖️ Memorial Day</p>
-      <p class="text-blue-600 mt-1">closed ya filthy animals</p>
+      <p class="text-2xl font-bold text-blue-800">🏖️ Holiday</p>
+      <p class="text-blue-600 mt-1">No schedule today</p>
     </div>
-
-    <!-- Main content (hidden when closed) -->
+ 
+    <!-- No data banner -->
+    <div id="nodata-banner" class="hidden mb-6 bg-slate-100 border border-slate-200 rounded-2xl p-6 text-center">
+      <p class="text-slate-500">No schedule data for this day.</p>
+    </div>
+ 
+    <!-- Main content -->
     <div id="main-content">
-
+ 
       <!-- Physician columns -->
       <div class="grid grid-cols-2 gap-3 mb-5">
-
-        <!-- IR Column -->
         <div>
           <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 px-1">IR</h2>
           <div class="space-y-2">
@@ -51,10 +65,8 @@
             </div>
           </div>
         </div>
-
-        <!-- Coverage Column -->
         <div>
-          <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 px-1">Fluoro</h2>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 px-1">Coverage</h2>
           <div class="space-y-2">
             <div class="glass-card p-3 rounded-xl shadow-sm">
               <p class="text-xs text-emerald-600 font-bold uppercase">Upfront</p>
@@ -70,16 +82,15 @@
             </div>
           </div>
         </div>
-
       </div>
-
+ 
       <!-- PA Section -->
       <div class="mb-5">
         <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 px-1">Physician Assistants</h2>
         <div id="pa-list" class="grid grid-cols-1 gap-2"></div>
       </div>
-
-      <!-- Footer info: US Flow Tech + Charge RN -->
+ 
+      <!-- US Flow Tech + Charge RN -->
       <div class="grid grid-cols-2 gap-3 mt-4">
         <div class="glass-card p-3 rounded-xl shadow-sm text-center">
           <p class="text-xs text-slate-400 uppercase font-semibold tracking-wider">US Flow Tech</p>
@@ -90,60 +101,87 @@
           <p id="charge-rn" class="text-sm font-semibold text-slate-700 mt-1">—</p>
         </div>
       </div>
-
-    </div><!-- end main-content -->
-
+ 
+    </div>
+ 
     <footer class="mt-10 text-center text-xs text-slate-400">
-      Source: Lightning Bolt Lite • Updated monthly or whenever I feel like it
+      Source: Lightning Bolt Lite • Updated Monthly
     </footer>
-
   </div>
-
+ 
   <script>
-    const now = new Date();
-    document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', {
-      weekday: 'long', month: 'long', day: 'numeric'
-    });
-
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    const todayKey = `${mm}/${dd}`;
-
+    let scheduleData = {};
+    let currentDate = new Date();
+    // Normalize to midnight local time
+    currentDate.setHours(0, 0, 0, 0);
+    const today = new Date(currentDate);
+ 
+    function formatKey(date) {
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      return `${mm}/${dd}`;
+    }
+ 
+    function formatDisplay(date) {
+      return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+ 
+    function changeDay(delta) {
+      currentDate.setDate(currentDate.getDate() + delta);
+      renderDay();
+    }
+ 
+    function renderDay() {
+      const key = formatKey(currentDate);
+      const isToday = formatKey(currentDate) === formatKey(today);
+ 
+      document.getElementById('current-date').innerText = formatDisplay(currentDate);
+      document.getElementById('today-label').innerText = isToday ? 'Today' : '';
+ 
+      // Hide all banners/content first
+      document.getElementById('closed-banner').classList.add('hidden');
+      document.getElementById('nodata-banner').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+ 
+      const dayData = scheduleData[key];
+ 
+      if (!dayData) {
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('nodata-banner').classList.remove('hidden');
+        return;
+      }
+ 
+      if (dayData.closed) {
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('closed-banner').classList.remove('hidden');
+        return;
+      }
+ 
+      document.getElementById('ir-primary').innerText   = dayData['IR Primary']   || '—';
+      document.getElementById('ir-assist').innerText    = dayData['IR Assist']    || '—';
+      document.getElementById('ir-ct').innerText        = dayData['IR/CT']        || '—';
+      document.getElementById('upfront').innerText      = dayData['Upfront']      || '—';
+      document.getElementById('peds').innerText         = dayData['Peds']         || '—';
+      document.getElementById('neuro-proc').innerText   = dayData['Neuro Proc']   || '—';
+      document.getElementById('us-flow-tech').innerText = dayData['US Flow Tech'] || '—';
+      document.getElementById('charge-rn').innerText    = dayData['Charge RN']    || '—';
+ 
+      const paContainer = document.getElementById('pa-list');
+      paContainer.innerHTML = '';
+      (dayData.PAs || []).forEach(pa => {
+        paContainer.innerHTML += `
+          <div class="glass-card p-3 rounded-xl flex justify-between items-center">
+            <span class="text-sm font-medium text-slate-500">${pa.role}</span>
+            <span class="text-sm font-semibold text-slate-800">${pa.name}</span>
+          </div>`;
+      });
+    }
+ 
     fetch('data.json')
       .then(r => r.json())
       .then(data => {
-        const today = data.schedule && data.schedule[todayKey];
-
-        if (!today) {
-          document.getElementById('main-content').innerHTML =
-            '<p class="text-center text-slate-400 mt-10">No schedule data for today.</p>';
-          return;
-        }
-
-        if (today.closed) {
-          document.getElementById('closed-banner').classList.remove('hidden');
-          document.getElementById('main-content').classList.add('hidden');
-          return;
-        }
-
-        document.getElementById('ir-primary').innerText   = today['IR Primary']   || '—';
-        document.getElementById('ir-assist').innerText    = today['IR Assist']    || '—';
-        document.getElementById('ir-ct').innerText        = today['IR/CT']        || '—';
-        document.getElementById('upfront').innerText      = today['Upfront']      || '—';
-        document.getElementById('peds').innerText         = today['Peds']         || '—';
-        document.getElementById('neuro-proc').innerText   = today['Neuro Proc']   || '—';
-        document.getElementById('us-flow-tech').innerText = today['US Flow Tech'] || '—';
-        document.getElementById('charge-rn').innerText    = today['Charge RN']    || '—';
-
-        const paContainer = document.getElementById('pa-list');
-        paContainer.innerHTML = '';
-        (today.PAs || []).forEach(pa => {
-          paContainer.innerHTML += `
-            <div class="glass-card p-3 rounded-xl flex justify-between items-center">
-              <span class="text-sm font-medium text-slate-500">${pa.role}</span>
-              <span class="text-sm font-semibold text-slate-800">${pa.name}</span>
-            </div>`;
-        });
+        scheduleData = data.schedule || {};
+        renderDay();
       })
       .catch(err => console.error('Error loading schedule:', err));
   </script>
