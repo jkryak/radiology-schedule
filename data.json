@@ -42,11 +42,11 @@
       "Peds": "J. Pat",
       "Neuro Proc": "M. Kni",
       "PAs": [
-        {"role": "IR Outpatient", "name": "N. Tar"},
         {"role": "CT", "name": "J. Kry"},
         {"role": "IR Inpatient 1", "name": "J. Urb"},
-        {"role": "GOR", "name": "C. Abd"},
-        {"role": "GMH FL 1", "name": "R. Spa"}
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "C. Abd"},
+        {"role": "IR Outpatient Half", "name": "L. Eid"}
       ],
       "US Flow Tech": "Kathryn",
       "Charge RN": "Val S"
@@ -59,7 +59,6 @@
       "Peds": "J. Pat",
       "Neuro Proc": "R. Lea",
       "PAs": [
-        {"role": "IR Outpatient", "name": "N. Tar"},
         {"role": "CT", "name": "C. Abd"},
         {"role": "IR Inpatient 1", "name": "J. Urb"},
         {"role": "GOR", "name": "L. Eid"},
@@ -68,9 +67,7 @@
       "US Flow Tech": "Heather",
       "Charge RN": "Abbie"
     },
-    "05/25": {
-      "closed": true
-    },
+    "05/25": { "closed": true },
     "05/26": {
       "IR Primary": "C. Han",
       "IR Assist": "J. Jay",
@@ -96,11 +93,11 @@
       "Peds": "J. Woo",
       "Neuro Proc": "J. Hol",
       "PAs": [
-        {"role": "IR Outpatient", "name": "J. Kry"},
         {"role": "CT", "name": "N. Tar"},
         {"role": "IR Inpatient 1", "name": "C. Abd"},
         {"role": "GOR", "name": "A. Loo"},
-        {"role": "GMH FL 1", "name": "A. Loo"}
+        {"role": "GMH FL 1", "name": "A. Loo"},
+        {"role": "IR Outpatient Half", "name": "J. Kry"}
       ],
       "US Flow Tech": "N/A",
       "Charge RN": "Val M"
@@ -136,6 +133,377 @@
       ],
       "US Flow Tech": "N/A",
       "Charge RN": "Cat"
+    },
+    "06/01": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "S. Sau",
+      "Peds": "R. Hei",
+      "Neuro Proc": "M. Kni",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "A. Loo"},
+        {"role": "IR Inpatient 1", "name": "N. Tar"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/02": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "M. Mor",
+      "Peds": "J. Woo",
+      "Neuro Proc": "R. Lea",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "GOR", "name": "A. Loo"},
+        {"role": "GMH FL 1", "name": "R. Spa"},
+        {"role": "IR Outpatient Half", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/03": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "T. Ter",
+      "Peds": "R. Hei",
+      "Neuro Proc": "E. Low",
+      "PAs": [
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "IR Inpatient 1", "name": "N. Tar"},
+        {"role": "GOR", "name": "A. Loo"},
+        {"role": "GMH FL 1", "name": "L. Eid"},
+        {"role": "Greer Half", "name": "C. Abd"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/04": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "V. Vol",
+      "Peds": "R. Hei",
+      "Neuro Proc": "N. Par",
+      "PAs": [
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "IR Inpatient 1", "name": "C. Abd"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "L. Eid"},
+        {"role": "IR Outpatient Half", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/05": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "T. Ter",
+      "Peds": "R. Hei",
+      "Neuro Proc": "R. Lea",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "GOR", "name": "L. Eid"},
+        {"role": "GMH FL 1", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/08": {
+      "IR Primary": "C. Han",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "S. Lee",
+      "Peds": "J. Pat",
+      "Neuro Proc": "W. Den",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "J. Kry"},
+        {"role": "IR Inpatient 1", "name": "J. Kry"},
+        {"role": "GOR", "name": "C. Abd"},
+        {"role": "GMH FL 1", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/09": {
+      "IR Primary": "C. Han",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "G. Gos",
+      "Peds": "J. Pat",
+      "Neuro Proc": "J. Dav",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "GOR", "name": "L. Eid"},
+        {"role": "GMH FL 1", "name": "R. Spa"},
+        {"role": "IR Half", "name": "J. Kry"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/10": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "C. Han",
+      "IR/CT": "C. Han",
+      "Upfront": "R. Rey",
+      "Peds": "J. Pat",
+      "Neuro Proc": "W. Den",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "R. Spa"},
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "GOR", "name": "A. Loo"},
+        {"role": "GMH FL 1", "name": "L. Eid"},
+        {"role": "Greer Half", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/11": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "C. Han",
+      "IR/CT": "C. Han",
+      "Upfront": "M. Mor",
+      "Peds": "J. Pat",
+      "Neuro Proc": "J. Dav",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "R. Spa"},
+        {"role": "GOR", "name": "J. Kry"},
+        {"role": "GMH FL 1", "name": "A. Loo"},
+        {"role": "IR Half", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/12": {
+      "IR Primary": "C. Han",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "M. Mat",
+      "Peds": "J. Pat",
+      "Neuro Proc": "E. Low",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Kry"},
+        {"role": "CT", "name": "A. Loo"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/15": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "C. Han",
+      "IR/CT": "J. Hin",
+      "Upfront": "P. Sha",
+      "Peds": "J. Woo",
+      "Neuro Proc": "J. Hol",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "A. Loo"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/16": {
+      "IR Primary": "C. Han",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Hin",
+      "Upfront": "S. Lee",
+      "Peds": "J. Woo",
+      "Neuro Proc": "R. Lea",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "N. Tar"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "GOR", "name": "J. Kry"},
+        {"role": "GMH FL 1", "name": "A. Loo"},
+        {"role": "IR Outpatient Half", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/17": {
+      "IR Primary": "C. Han",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Hin",
+      "Upfront": "F. Fra",
+      "Peds": "J. Woo",
+      "Neuro Proc": "J. Hol",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "J. Kry"},
+        {"role": "Greer Half", "name": "J. Kry"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/18": {
+      "IR Primary": "C. Han",
+      "IR Assist": "J. Hin",
+      "IR/CT": "J. Jay",
+      "Upfront": "D. Dit",
+      "Peds": "J. Woo",
+      "Neuro Proc": "M. Kni",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Kry"},
+        {"role": "CT", "name": "J. Kry"},
+        {"role": "GOR", "name": "C. Abd"},
+        {"role": "GMH FL 1", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/19": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "C. Han",
+      "IR/CT": "J. Hin",
+      "Upfront": "M. Kni",
+      "Peds": "J. Woo",
+      "Neuro Proc": "E. Low",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Kry"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "C. Abd"},
+        {"role": "IR Outpatient Half", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/22": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "W. Wil",
+      "Peds": "J. Woo",
+      "Neuro Proc": "J. Hol",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "J. Kry"},
+        {"role": "IR Inpatient 1", "name": "J. Kry"},
+        {"role": "GOR", "name": "C. Abd"},
+        {"role": "GMH FL 1", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/23": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "K. Kyl",
+      "Peds": "J. Woo",
+      "Neuro Proc": "W. Den",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "N. Tar"},
+        {"role": "IR Inpatient 1", "name": "J. Kry"},
+        {"role": "GOR", "name": "L. Eid"},
+        {"role": "GMH FL 1", "name": "C. Abd"},
+        {"role": "Greer Half", "name": "L. Eid"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/24": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "M. Mor",
+      "Peds": "J. Woo",
+      "Neuro Proc": "J. Hol",
+      "PAs": [
+        {"role": "CT", "name": "A. Loo"},
+        {"role": "IR Inpatient 1", "name": "C. Abd"},
+        {"role": "GOR", "name": "L. Eid"},
+        {"role": "GMH FL 1", "name": "R. Spa"},
+        {"role": "IR Half", "name": "R. Spa"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/25": {
+      "IR Primary": "S. Bit",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "W. Wil",
+      "Peds": "J. Woo",
+      "Neuro Proc": "N. Par",
+      "PAs": [
+        {"role": "CT", "name": "C. Abd"},
+        {"role": "GOR", "name": "A. Loo"},
+        {"role": "GMH FL 1", "name": "L. Eid"},
+        {"role": "IR Half", "name": "C. Abd"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/26": {
+      "IR Primary": "J. Jay",
+      "IR Assist": "S. Bit",
+      "IR/CT": "S. Bit",
+      "Upfront": "W. Wil",
+      "Peds": "J. Woo",
+      "Neuro Proc": "W. Den",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "R. Spa"},
+        {"role": "CT", "name": "L. Eid"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "A. Loo"},
+        {"role": "IR Outpatient Half", "name": "J. Kry"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/29": {
+      "IR Primary": "J. Hin",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "G. Gos",
+      "Peds": "R. Hei",
+      "Neuro Proc": "W. Den",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "J. Urb"},
+        {"role": "CT", "name": "A. Loo"},
+        {"role": "IR Inpatient 1", "name": "N. Tar"},
+        {"role": "GOR", "name": "R. Spa"},
+        {"role": "GMH FL 1", "name": "J. Kry"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
+    },
+    "06/30": {
+      "IR Primary": "J. Hin",
+      "IR Assist": "J. Jay",
+      "IR/CT": "J. Jay",
+      "Upfront": "L. Lowe",
+      "Peds": "R. Hei",
+      "Neuro Proc": "N. Par",
+      "PAs": [
+        {"role": "IR Outpatient", "name": "N. Tar"},
+        {"role": "CT", "name": "R. Spa"},
+        {"role": "IR Inpatient 1", "name": "J. Urb"},
+        {"role": "GOR", "name": "J. Kry"},
+        {"role": "GMH FL 1", "name": "C. Abd"},
+        {"role": "Greer Half", "name": "C. Abd"}
+      ],
+      "US Flow Tech": "N/A",
+      "Charge RN": "N/A"
     }
   }
 }
